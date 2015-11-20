@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+     @Scripts.Render("~/bundles/jquery")
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $("#countrySelector").change(function () {
+                 var countryId = $("#countrySelector").val();
+                 
+                 $("#citySelctor option").remove();
+
+
+                 $.getJSON("/home/GetCities?id=" + countryId, function (data) {
+                     $("#citySelctor").append('<option>-Select City-</option>');
+                     $.each(data, function (i, item) {
+                         $("#citySelctor").append('<option value=' + item.Id + '>' + item.Name + '</option>');
+                         //alert('Id = ' + item.Id + " Name = " + item.Name);
+                     });
+
+                 });
+
+             });
+
+         });
+</script>
+</head>
+<body>
+    <div>
+     
+        
+
+      <div>
+     <select id="countrySelector">
+  <option value="0">-Select Country-</option>
+          <option value="1">Pakistan</option>
+      <option value="2">France</option>
+  
+</select>
+
+             <div>
+      <select id="citySelctor">
+  <option>-Select City-</option>
+      
+  
+</select>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
